@@ -1,4 +1,4 @@
-package com.example.pictoboard_22_23.ui.main;
+package com.example.pictoboard_22_23;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,8 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.example.pictoboard_22_23.R;
 
 public class Picto extends LinearLayout {
 

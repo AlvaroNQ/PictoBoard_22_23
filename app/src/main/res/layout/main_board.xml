@@ -1,102 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/LL_whole"
     android:orientation="vertical"
     android:clickable="false"
-    android:layout_gravity="bottom"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#2196F3">
+    android:layout_height="300dp"
+    android:background="#2196F3"
+    >
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal"/>
-
-    <GridLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/top_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="1"
-        android:alignmentMode="alignMargins"
-        android:columnOrderPreserved="false"
-        android:padding="7dp">
+        android:scrollbars="horizontal"
+        android:background="#616161"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="3dp"
+        />
 
-        <ScrollView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".3"
+        android:background="#3E4447"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/left_block"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:background="#3E4447">
+            android:layout_margin="5dp"/>
 
-            <GridLayout
-                android:id="@+id/left_grid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:columnCount="1"
-                android:alignmentMode="alignMargins"
-                android:columnOrderPreserved="false"
-                android:padding="10dp">
 
-                <ImageButton
-                    android:src="@drawable/ic_picto_default"
-                    android:id="@+id/bu2tton_send10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <ImageButton
-                    android:src="@drawable/ic_picto_default"
-                    android:id="@+id/but2222ton_send11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-            </GridLayout>
-        </ScrollView>
-
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/right_block"
+            android:background="#5A5E60"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#5A5A5A">
-            <GridLayout
-                android:id="@+id/right_grid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:columnCount="3"
-                android:alignmentMode="alignMargins"
-                android:columnOrderPreserved="false"
-                android:padding="10dp">
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            >
+        </androidx.recyclerview.widget.RecyclerView>
 
-
-
-                <ImageButton
-                    android:src="@drawable/ic_picto_default"
-                    android:id="@+id/button_send20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <ImageButton
-                    android:src="@drawable/ic_picto_default"
-                    android:id="@+id/button_send21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <ImageButton
-                    android:src="@drawable/ic_picto_default"
-                    android:id="@+id/button_send22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-            </GridLayout>
-        </ScrollView>
-
-
-    </GridLayout>
+    </LinearLayout>
 
 </LinearLayout>
