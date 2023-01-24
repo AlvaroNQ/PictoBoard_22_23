@@ -4,7 +4,6 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -12,11 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.flexbox.AlignContent;
 import com.google.android.flexbox.AlignItems;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
@@ -32,8 +29,10 @@ public class MyInputMethodService extends InputMethodService{
     @Override
     public View onCreateInputView() {
         ctx = getLayoutInflater().getContext();
+        mInputConnection = getCurrentInputConnection();
+
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View inputView = getLayoutInflater().inflate(R.layout.main_board, null);
+        View inputView = View.inflate(ctx,R.layout.main_board, null);
 
         List<Picto> topData = getTopPictos();
 
@@ -41,7 +40,7 @@ public class MyInputMethodService extends InputMethodService{
         LinearLayoutManager topLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         topRecyclerView.setLayoutManager(topLayoutManager);
 
-        MyAdapter topAdapter = new MyAdapter(topData);
+        MyAdapter topAdapter = new MyAdapter(topData, mInputConnection);
         topRecyclerView.setAdapter(topAdapter);
 
 
@@ -54,7 +53,7 @@ public class MyInputMethodService extends InputMethodService{
 
 
         leftRecyclerView.setLayoutManager(leftLayoutManager);
-        MyAdapter leftAdapter = new MyAdapter(leftData);
+        MyAdapter leftAdapter = new MyAdapter(leftData, mInputConnection);
         leftRecyclerView.setAdapter(leftAdapter);
 
 
@@ -64,11 +63,11 @@ public class MyInputMethodService extends InputMethodService{
         FlexboxLayoutManager rightLayoutManager = new FlexboxLayoutManager(this);
         rightLayoutManager.setFlexDirection(FlexDirection.ROW);
         rightLayoutManager.setJustifyContent(JustifyContent.CENTER);
-        rightLayoutManager.setAlignItems(AlignItems.CENTER);
+        rightLayoutManager.setAlignItems(AlignItems.FLEX_START);
 
         rightRecyclerView.setLayoutManager(rightLayoutManager);
 
-        MyAdapter rightAdapter = new MyAdapter(rightData);
+        MyAdapter rightAdapter = new MyAdapter(rightData, mInputConnection);
         rightRecyclerView.setAdapter(rightAdapter);
 
         return inputView;
@@ -82,7 +81,7 @@ public class MyInputMethodService extends InputMethodService{
         data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", 2));
         data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", 3));
         data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606", 4));
-        data.add(new Picto(ctx, R.drawable.yes, "yes", "#2986cc", 5));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc", 5));
         data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
 
         data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c", 0));
@@ -90,7 +89,7 @@ public class MyInputMethodService extends InputMethodService{
         data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", 2));
         data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", 3));
         data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606", 4));
-        data.add(new Picto(ctx, R.drawable.yes, "yes", "#2986cc", 5));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc", 5));
         data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
 
 
@@ -119,13 +118,8 @@ public class MyInputMethodService extends InputMethodService{
         data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
         data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
 
-
-
-
         return data;
     }
-
-
 
     @Override
     public void onStartInput(EditorInfo info, boolean restarting) {

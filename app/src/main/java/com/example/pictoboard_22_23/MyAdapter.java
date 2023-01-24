@@ -2,21 +2,24 @@ package com.example.pictoboard_22_23;
 
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.List;
+import android.view.inputmethod.InputConnection;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.flexbox.AlignItems;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
+
+import java.util.List;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+    private final InputConnection mInputConnection;
+
     private final List<Picto> data;
 
-    public MyAdapter(List<Picto> data) {
+    public MyAdapter(List<Picto> data, InputConnection mInputConnection) {
         this.data = data;
+        this.mInputConnection = mInputConnection;
     }
 
     @NonNull
@@ -34,6 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public void onBindViewHolder(MyViewHolder holder, int position) {
         Picto item = data.get(position);
         holder.bindData(item);
+        holder.itemView.setOnClickListener(view -> mInputConnection.commitText(" " + ((Picto)view).getText(), 1));
     }
 
     @Override
@@ -52,10 +56,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public void bindData(Picto item) {
             this.picto.setPicto(item);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Picto data);
     }
 }
 
