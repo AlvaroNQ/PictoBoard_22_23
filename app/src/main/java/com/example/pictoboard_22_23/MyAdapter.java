@@ -2,24 +2,18 @@ package com.example.pictoboard_22_23;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputConnection;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.flexbox.FlexboxLayoutManager;
 
 import java.util.List;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private final InputConnection mInputConnection;
+    protected final List<Picto> data;
 
-    private final List<Picto> data;
-
-    public MyAdapter(List<Picto> data, InputConnection mInputConnection) {
+    public MyAdapter(List<Picto> data) {
         this.data = data;
-        this.mInputConnection = mInputConnection;
     }
 
     @NonNull
@@ -37,7 +31,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public void onBindViewHolder(MyViewHolder holder, int position) {
         Picto item = data.get(position);
         holder.bindData(item);
-        holder.itemView.setOnClickListener(view -> mInputConnection.commitText(" " + ((Picto)view).getText(), 1));
     }
 
     @Override

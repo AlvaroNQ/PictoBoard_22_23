@@ -4,7 +4,6 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
@@ -22,14 +21,13 @@ import java.util.List;
 
 
 public class MyInputMethodService extends InputMethodService{
-    private InputConnection mInputConnection;
     LayoutInflater inflater;
     Context ctx;
 
     @Override
     public View onCreateInputView() {
         ctx = getLayoutInflater().getContext();
-        mInputConnection = getCurrentInputConnection();
+        InputConnection mInputConnection = getCurrentInputConnection();
 
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View inputView = View.inflate(ctx,R.layout.main_board, null);
@@ -40,7 +38,7 @@ public class MyInputMethodService extends InputMethodService{
         LinearLayoutManager topLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         topRecyclerView.setLayoutManager(topLayoutManager);
 
-        MyAdapter topAdapter = new MyAdapter(topData, mInputConnection);
+        MyAdapter topAdapter = new myKeyboardAdapter(topData, mInputConnection);
         topRecyclerView.setAdapter(topAdapter);
 
 
@@ -53,11 +51,11 @@ public class MyInputMethodService extends InputMethodService{
 
 
         leftRecyclerView.setLayoutManager(leftLayoutManager);
-        MyAdapter leftAdapter = new MyAdapter(leftData, mInputConnection);
+        MyAdapter leftAdapter = new myKeyboardAdapter(leftData, mInputConnection);
         leftRecyclerView.setAdapter(leftAdapter);
 
 
-        List<Picto> rightData = getRightPictos();
+        List<Picto> rightData = getTopPictos();
 
         RecyclerView rightRecyclerView = inputView.findViewById(R.id.right_block);
         FlexboxLayoutManager rightLayoutManager = new FlexboxLayoutManager(this);
@@ -67,7 +65,7 @@ public class MyInputMethodService extends InputMethodService{
 
         rightRecyclerView.setLayoutManager(rightLayoutManager);
 
-        MyAdapter rightAdapter = new MyAdapter(rightData, mInputConnection);
+        MyAdapter rightAdapter = new myKeyboardAdapter(rightData, mInputConnection);
         rightRecyclerView.setAdapter(rightAdapter);
 
         return inputView;
@@ -92,39 +90,7 @@ public class MyInputMethodService extends InputMethodService{
         data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc", 5));
         data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
 
-
-
         return data;
-    }
-
-    @NonNull
-    private List<Picto> getRightPictos() {
-        List<Picto> data = new ArrayList<>();
-
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d", 1));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-
-        return data;
-    }
-
-    @Override
-    public void onStartInput(EditorInfo info, boolean restarting) {
-        super.onStartInput(info, restarting);
-        mInputConnection = getCurrentInputConnection();
     }
 }
 
