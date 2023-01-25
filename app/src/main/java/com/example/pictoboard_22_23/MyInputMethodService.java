@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pictoboard_22_23.enums.PictoType;
 import com.google.android.flexbox.AlignItems;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
@@ -42,7 +43,7 @@ public class MyInputMethodService extends InputMethodService{
         topRecyclerView.setAdapter(topAdapter);
 
 
-        List<Picto> leftData = getTopPictos();
+        List<Picto> leftData = getCategories();
 
         RecyclerView leftRecyclerView = inputView.findViewById(R.id.left_block);
         FlexboxLayoutManager leftLayoutManager = new FlexboxLayoutManager(this);
@@ -55,7 +56,7 @@ public class MyInputMethodService extends InputMethodService{
         leftRecyclerView.setAdapter(leftAdapter);
 
 
-        List<Picto> rightData = getTopPictos();
+        List<Picto> rightData = getPictos();
 
         RecyclerView rightRecyclerView = inputView.findViewById(R.id.right_block);
         FlexboxLayoutManager rightLayoutManager = new FlexboxLayoutManager(this);
@@ -74,24 +75,64 @@ public class MyInputMethodService extends InputMethodService{
     @NonNull
     private List<Picto> getTopPictos() {
         List<Picto> data = new ArrayList<>();
-        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c", 0));
-        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d", 1));
-        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", 2));
-        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", 3));
-        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606", 4));
-        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc", 5));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
-
-        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c", 0));
-        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d", 1));
-        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", 2));
-        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", 3));
-        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606", 4));
-        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc", 5));
-        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc", 6));
+        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c", PictoType.HELP, 0));
+        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d", PictoType.CATEGORY,1));
+        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", PictoType.TTS,2));
+        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", PictoType.ERASE,3));
+        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606",PictoType.ERASE_ALL, 4));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc",PictoType.PICTO, 5));
+        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc",PictoType.PICTO, 6));
 
         return data;
     }
+
+    @NonNull
+    private List<Picto> getCategories() {
+        List<Picto> data = new ArrayList<>();
+        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c", PictoType.CATEGORY, 0));
+        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d", PictoType.CATEGORY,1));
+        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", PictoType.CATEGORY,2));
+        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", PictoType.CATEGORY,3));
+        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606",PictoType.CATEGORY, 4));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc",PictoType.CATEGORY, 5));
+        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc",PictoType.CATEGORY, 6));
+
+        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c",PictoType.CATEGORY, 0));
+        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d",PictoType.CATEGORY, 1));
+        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606",PictoType.CATEGORY, 2));
+        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606",PictoType.CATEGORY, 3));
+        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606",PictoType.CATEGORY, 4));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc",PictoType.CATEGORY, 5));
+        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc",PictoType.CATEGORY, 6));
+
+        return data;
+    }
+
+    @NonNull
+    private List<Picto> getPictos() {
+        List<Picto> data = new ArrayList<>();
+        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c", PictoType.PICTO, 0));
+        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d", PictoType.PICTO,1));
+        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606", PictoType.PICTO,2));
+        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606", PictoType.PICTO,3));
+        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606",PictoType.PICTO, 4));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc",PictoType.PICTO, 5));
+        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc",PictoType.PICTO, 6));
+
+        data.add(new Picto(ctx, R.drawable.help, "Help", "#03c03c",PictoType.PICTO, 0));
+        data.add( new Picto(ctx, R.drawable.numbers, "Numbers", "#e6a91d",PictoType.PICTO, 1));
+        data.add(new Picto(ctx, R.drawable.read, "Read", "#d50606",PictoType.PICTO, 2));
+        data.add(new Picto(ctx, R.drawable.erase, "Erase", "#d50606",PictoType.PICTO, 3));
+        data.add(new Picto(ctx, R.drawable.erase_all, "Erase All", "#d50606",PictoType.PICTO, 4));
+        data.add(new Picto(ctx, R.drawable.yes, "Yes", "#2986cc",PictoType.PICTO, 5));
+        data.add(new Picto(ctx, R.drawable.no, "No", "#2986cc",PictoType.PICTO, 6));
+
+        return data;
+    }
+
+
+
+
 }
 
 

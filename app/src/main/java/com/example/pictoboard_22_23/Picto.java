@@ -12,25 +12,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import com.example.pictoboard_22_23.enums.PictoType;
+
 public class Picto extends LinearLayout {
 
     private FrameLayout.LayoutParams layoutParams;
     public ImageView imageView;
     private int image;
     public TextView textView;
-    private View line;
-    private Drawable rectangle;
+    private final View line;
+    private final Drawable rectangle;
     private String color;
-    private int id;
+    public int id;
+    private PictoType type;
 
 
-    public Picto(Context context, int resource, String text, String color, int id) {
+    public Picto(Context context, int resource, String text, String color, PictoType type, int id) {
         super(context);
         this.id = id;
+        this.type = type;
 
         this.setClickable(true);
 
-        this.rectangle = getResources().getDrawable(R.drawable.rectangle);
+        this.rectangle = ContextCompat.getDrawable(context, R.drawable.rectangle);
         this.setBackground(this.rectangle);
         GradientDrawable myGrad = (GradientDrawable)this.getBackground();
         this.color = color;
@@ -60,7 +66,7 @@ public class Picto extends LinearLayout {
         this.addView(this.line);
 
         this.textView = new TextView(context);
-        this.textView.setId(View.generateViewId());;
+        this.textView.setId(View.generateViewId());
         this.layoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         this.layoutParams.setMargins(15,0,15,2);
         this.textView.setLayoutParams(layoutParams);
@@ -71,11 +77,10 @@ public class Picto extends LinearLayout {
 
     public Picto(Context context) {
         super(context);
-        this.id = id;
 
         this.setClickable(true);
 
-        this.rectangle = getResources().getDrawable(R.drawable.rectangle);
+        this.rectangle = ContextCompat.getDrawable(context, R.drawable.rectangle);
         this.setBackground(this.rectangle);
         GradientDrawable myGrad = (GradientDrawable)this.getBackground();
         myGrad.setStroke(10, Color.BLACK);
@@ -103,11 +108,11 @@ public class Picto extends LinearLayout {
         this.addView(this.line);
 
         this.textView = new TextView(context);
-        this.textView.setId(View.generateViewId());;
+        this.textView.setId(View.generateViewId());
         this.layoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         this.layoutParams.setMargins(15,0,15,2);
         this.textView.setLayoutParams(layoutParams);
-        this.textView.setText("text");
+        this.textView.setText(R.string.defaultText);
         this.textView.setTextSize(18);
         this.addView(this.textView);
     }
@@ -141,7 +146,7 @@ public class Picto extends LinearLayout {
         this.image = resource;
     }
 
-    public int getImage(){
-        return this.image;
+    public PictoType getType() {
+        return type;
     }
 }
