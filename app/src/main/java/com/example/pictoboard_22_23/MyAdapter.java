@@ -1,6 +1,5 @@
 package com.example.pictoboard_22_23;
 
-import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +8,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import java.util.List;
 
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public abstract class MyAdapter<T extends MyViewHolder> extends RecyclerView.Adapter<T> {
     protected final List<Picto> data;
 
     public MyAdapter(List<Picto> data) {
@@ -18,17 +17,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public T onCreateViewHolder(ViewGroup parent, int viewType) {
         Picto view = new Picto(parent.getContext());
         FlexboxLayoutManager.LayoutParams lp = new FlexboxLayoutManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setFlexGrow(1);
         lp.setFlexShrink(0.0f);
         view.setLayoutParams(lp);
-        return new MyViewHolder(view);
+        return instanceViewHolder(view);
     }
 
+    protected abstract T instanceViewHolder(Picto view);
+
     @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public final void onBindViewHolder(T holder, int position) {
         Picto item = data.get(position);
         holder.bindData(item);
     }
@@ -38,18 +39,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return data.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private final Picto picto;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            this.picto = (Picto) itemView;
-        }
-
-        public void bindData(Picto item) {
-            this.picto.setPicto(item);
-        }
-    }
 }
 
 
