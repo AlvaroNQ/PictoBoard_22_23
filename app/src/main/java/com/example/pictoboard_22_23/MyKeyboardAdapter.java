@@ -20,7 +20,7 @@ public class MyKeyboardAdapter extends MyAdapter<MyKeyboardAdapter.MyKeyboardVie
         this.callback = callback;
     }
 
-    @Override
+    @Override○
     protected MyKeyboardViewHolder instanceViewHolder(Picto view) {
         return new MyKeyboardViewHolder(view, this.mInputConnection, this.callback);
     }
